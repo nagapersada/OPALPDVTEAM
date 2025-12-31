@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Peluang Bisnis Interaktif: DV TEAM x OPALP</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+
+<style>
+    /* === SEMUA STYLE ASLI ANDA (TIDAK ADA PERUBAHAN) === */
+    body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e2e8f0; overflow-x: hidden; }
+    h1, h2, h3, h4, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .animated-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: radial-gradient(circle at 50% 50%, #1e293b, #0f172a, #000000); overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 20s infinite ease-in-out; }
+    .orb-1 { width: 400px; height: 400px; background: #0369a1; top: -100px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: #b45309; bottom: -100px; right: -100px; animation-delay: -5s; }
+    .orb-3 { width: 300px; height: 300px; background: #075985; top: 40%; left: 40%; animation-delay: -10s; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 50px); } }
+    .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
+    .text-gold-gradient { background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0px 2px 10px rgba(234, 179, 8, 0.2); }
+    .gold-border-bottom { position: relative; }
+    .gold-border-bottom::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, transparent, #fbbf24, transparent); transition: width 0.3s ease; }
+    .nav-link:hover .gold-border-bottom::after, .nav-link.active .gold-border-bottom::after { width: 100%; }
+    .btn-gold { background: linear-gradient(135deg, #d97706 0%, #fbbf24 50%, #b45309 100%); color: #000; border: 1px solid #f59e0b; box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); transition: all 0.3s ease; }
+    .input-glass { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); color: white; }
+    .tab-btn { color: #94a3b8; border-color: transparent; transition: all 0.3s; }
+    .tab-btn.active { color: #fbbf24; border-bottom-color: #fbbf24; background: linear-gradient(to top, rgba(245, 158, 11, 0.1), transparent); }
+
+    /* === REVISI TABEL: STICKY HEADER & COLUMN === */
+    .table-responsive-container { overflow: auto; max-height: 500px; position: relative; border-radius: 0.75rem; border: 1px solid rgba(255,255,255,0.1); }
+    .table-glass { border-collapse: separate; border-spacing: 0; width: 100%; }
+    .table-glass thead th { position: sticky; top: 0; background: #1e293b !important; color: #fbbf24; z-index: 50; border-bottom: 2px solid rgba(251, 191, 36, 0.3); padding: 12px 16px; }
+    .table-glass .sticky-col { position: sticky; left: 0; background: #0f172a !important; z-index: 40; border-right: 1px solid rgba(251, 191, 36, 0.2); }
+    .table-glass thead th.sticky-col { z-index: 60; }
+    .table-glass td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; }
+
+    /* === AUDIO & SPLASH === */
+    .audio-player-btn { background: rgba(245, 158, 11, 0.2); border: 1px solid #fbbf24; color: #fbbf24; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+    #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0c4a6e, #020617); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; z-index: 9999; transition: opacity 0.5s ease-out; }
+    #splash-screen.hidden { opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body class="antialiased">
+
+<div class="animated-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+</div>
+
+<div id="splash-screen">
+    <blockquote class="text-2xl font-bold max-w-xl px-6">"Peluang tidak terjadi begitu saja, Anda yang menciptakannya."</blockquote>
+    <p class="text-amber-400 mt-4">- Chris Grosser -</p>
+    <button id="enter-btn" class="mt-8 btn-gold px-10 py-4 rounded-xl font-bold text-lg">Masuk ke Materi</button>
+</div>
+
+<header class="fixed top-0 w-full z-50 border-b border-white/5 bg-slate-900/60 backdrop-blur-md">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-extrabold tracking-tight text-white">DV <span class="text-amber-500">x</span> OPALP</div>
+        <div class="hidden md:flex space-x-8">
+            <a class="nav-link" href="#beranda">Beranda</a>
+            <a class="nav-link" href="#konsep">Konsep</a>
+            <a class="nav-link" href="#cara-kerja">Cara Kerja</a>
+            <a class="nav-link" href="#ekosistem">Ekosistem</a>
+            <a class="nav-link" href="#kalkulator">Kalkulator</a>
+            <a class="nav-link" href="#bonus">Bonus</a>
+            <a class="nav-link" href="#dukungan">Dukungan</a>
+            <a class="nav-link" href="#legalitas">Legalitas</a>
+        </div>
+        <button class="btn-gold font-bold py-2 px-6 rounded-lg open-contact">Gabung Sekarang</button>
+    </nav>
+</header>
+
+<main>
+    <section class="min-h-screen flex items-center pt-20" id="beranda">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-7xl font-extrabold text-white mb-6">Ubah Cara Anda <br/><span class="text-gold-gradient">Menghasilkan Uang!</span></h1>
+            <button class="audio-player-btn mb-10" data-audio-src="audio/narasi-beranda.mp3">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+            </button>
+            <div class="glass-card p-4 rounded-3xl max-w-4xl mx-auto border border-amber-500/30">
+                <iframe class="w-full aspect-video rounded-2xl" src="https://www.youtube.com/embed/1NycUVBmpvI" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24" id="konsep">
+        <div class="container mx-auto px-6">
+            <h2 class="text-center text-3xl font-bold text-gold-gradient mb-16">Konsep Bisnis Cerdas</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 text-center">
+                <div class="glass-card p-6 rounded-xl w-64">👥 Pengguna Bertambah</div>
+                <div class="text-amber-500">➔</div>
+                <div class="glass-card p-6 rounded-xl w-64">📈 Volume Naik</div>
+                <div class="text-amber-500">➔</div>
+                <div class="glass-card p-6 rounded-xl w-64">💰 Keuntungan Naik</div>
+                <div class="text-amber-500">➔</div>
+                <div class="glass-card p-6 rounded-xl w-64">💸 User Profit</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24" id="cara-kerja">
+        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 rounded-2xl text-center">1. Belajar</div>
+            <div class="glass-card p-8 rounded-2xl text-center">2. Praktek</div>
+            <div class="glass-card p-8 rounded-2xl text-center">3. Profit</div>
+        </div>
+    </section>
+
+    <section class="py-24" id="kalkulator">
+        <div class="container mx-auto px-6">
+            <h2 class="text-center text-3xl font-bold text-gold-gradient mb-12">Kalkulator Potensi</h2>
+            <div class="max-w-4xl mx-auto glass-card p-8 rounded-2xl">
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-amber-400 font-bold mb-2">Modal Awal (USDT)</label>
+                            <input id="initCap" type="number" class="w-full p-4 rounded-xl input-glass" value="100">
+                        </div>
+                        <div>
+                            <label class="block text-amber-400 font-bold mb-2">Target Penghasilan (IDR)</label>
+                            <input id="targetIDR" type="number" class="w-full p-4 rounded-xl input-glass" value="50000000">
+                        </div>
+                        <button id="btnCalc" class="w-full btn-gold py-4 rounded-xl font-bold">HITUNG POTENSI</button>
+                    </div>
+                    <div id="resBox" class="hidden space-y-4">
+                        <div class="p-4 bg-slate-800/50 rounded-lg"><p class="text-sm">Saldo 30 Hari</p><p id="r30" class="text-xl font-bold text-green-400"></p></div>
+                        <div class="p-4 bg-slate-800/50 rounded-lg"><p class="text-sm">Saldo 60 Hari</p><p id="r60" class="text-xl font-bold text-green-400"></p></div>
+                        <div class="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg"><p id="targetDay" class="font-bold text-amber-400"></p><p id="rTarget" class="text-2xl font-black text-amber-400"></p></div>
+                    </div>
+                </div>
+                <div id="tableBox" class="hidden mt-10">
+                    <div class="table-responsive-container custom-scrollbar">
+                        <table class="table-glass">
+                            <thead>
+                                <tr><th class="sticky-col">Hari</th><th>Modal Awal</th><th>Profit Siang</th><th>Profit Malam</th><th>Saldo Akhir</th></tr>
+                            </thead>
+                            <tbody id="tBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24" id="bonus">
+        <div class="container mx-auto px-6">
+            <div class="glass-card p-6 rounded-3xl max-w-5xl mx-auto">
+                <div class="flex justify-center border-b border-white/10 mb-8 overflow-x-auto">
+                    <button class="tab-btn px-6 py-4 active" data-tab="karir">Karir</button>
+                    <button class="tab-btn px-6 py-4" data-tab="awal">Bonus Awal</button>
+                    <button class="tab-btn px-6 py-4" data-tab="tim">Bonus Tim</button>
+                </div>
+                <div id="tab-karir" class="tab-pane"><div style="height:300px"><canvas id="levelBonusChart"></canvas></div></div>
+                <div id="tab-awal" class="tab-pane hidden">Bonus Deposit Baru...</div>
+                <div id="tab-tim" class="tab-pane hidden">Bonus Sinyal Tambahan...</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24" id="dukungan">
+        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 rounded-xl" id="charity-card">❤️ Subsidi Amal</div>
+            <div class="glass-card p-8 rounded-xl" id="office-card">🏢 Subsidi Kantor</div>
+            <div class="glass-card p-8 rounded-xl">🍽️ Subsidi Makan</div>
+        </div>
+    </section>
+
+    <section class="py-24" id="legalitas">
+        <div class="container mx-auto px-6 text-center">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="cert-item"><img src="./1000165414.jpg" class="rounded-lg shadow-lg"></div>
+                <div class="cert-item"><img src="./good-standing.jpg" class="rounded-lg shadow-lg"></div>
+                <div class="cert-item"><img src="./shares.jpg" class="rounded-lg shadow-lg"></div>
+                <div class="cert-item"><img src="./authorization.jpg" class="rounded-lg shadow-lg"></div>
+                <div class="cert-item"><img src="./guarantee.jpg" class="rounded-lg shadow-lg"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div id="contact-modal" class="fixed inset-0 bg-black/90 z-[999] hidden flex items-center justify-center p-4">
+    <div class="glass-card p-8 rounded-3xl max-w-md w-full text-center">
+        <h3 class="text-2xl font-bold text-white">Naga Persada</h3>
+        <p class="text-amber-400 font-bold mt-2">Deka Sonjaya</p>
+        <button class="mt-8 btn-gold px-6 py-2 rounded-lg close-modal">Tutup</button>
+    </div>
+</div>
+<div id="private-modal" class="fixed inset-0 bg-black/95 z-[999] hidden flex items-center justify-center p-4"><div class="bg-slate-900 border border-amber-500 p-8 text-center"><p>Peringatan Rahasia!</p><button class="btn-gold mt-4 px-6 py-2 close-modal">Mengerti</button></div></div>
+<div id="charity-modal" class="fixed inset-0 bg-black/90 z-[999] hidden flex items-center justify-center p-4"><div class="glass-card p-8">Rincian Amal...<button class="close-modal mt-4">Tutup</button></div></div>
+<div id="office-modal" class="fixed inset-0 bg-black/90 z-[999] hidden flex items-center justify-center p-4"><div class="glass-card p-8">Rincian Kantor...<button class="close-modal mt-4">Tutup</button></div></div>
+<div id="image-modal" class="fixed inset-0 bg-black/95 z-[1000] hidden flex items-center justify-center p-4"><img id="modal-img" class="max-w-full max-h-full rounded-lg"><button class="absolute top-4 right-4 text-white text-4xl close-image">&times;</button></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const USD_IDR = 16649.10;
+    const rate = 0.0085;
+
+    // Splash
+    document.getElementById('enter-btn').addEventListener('click', () => { document.getElementById('splash-screen').classList.add('hidden'); });
+
+    // Kalkulator (Presisi)
+    document.getElementById('btnCalc').addEventListener('click', () => {
+        let bal = parseFloat(document.getElementById('initCap').value);
+        let target = parseFloat(document.getElementById('targetIDR').value);
+        if(bal < 100) return alert("Min. 100 USDT");
+
+        let targetUSDT = target / USD_IDR;
+        let dayReached = -1, bal30 = 0, bal60 = 0, rows = '';
+
+        for(let d=1; d<=1000; d++){
+            let start = bal;
+            let p1 = start * rate; let mid = start + p1;
+            let p2 = mid * rate; let end = mid + p2;
+
+            if(d === 30) bal30 = end;
+            if(d === 60) bal60 = end;
+            if(dayReached === -1 && end >= targetUSDT) dayReached = d;
+
+            if(d <= 60 || (dayReached !== -1 && d <= dayReached + 5)){
+                rows += `<tr><td class="sticky-col font-black text-amber-500">${d}</td><td>$${start.toFixed(2)}</td><td class="text-green-400">+$${p1.toFixed(2)}</td><td class="text-green-400">+$${p2.toFixed(2)}</td><td class="font-bold text-amber-400">$${end.toFixed(2)}</td></tr>`;
+            }
+            bal = end;
+            if(dayReached !== -1 && d >= dayReached + 5) break;
+        }
+
+        document.getElementById('r30').innerText = `$${bal30.toFixed(2)}`;
+        document.getElementById('r60').innerText = `$${bal60.toFixed(2)}`;
+        document.getElementById('targetDay').innerText = dayReached !== -1 ? `Target Tercapai Hari Ke-${dayReached}` : "Target Belum Tercapai";
+        document.getElementById('rTarget').innerText = dayReached !== -1 ? `$${bal.toFixed(2)}` : "-";
+        document.getElementById('tBody').innerHTML = rows;
+        document.getElementById('resBox').classList.remove('hidden');
+        document.getElementById('tableBox').classList.remove('hidden');
+    });
+
+    // Chart
+    new Chart(document.getElementById('levelBonusChart'), { type: 'bar', data: { labels:['LV1','LV2','LV3','LV4','LV5','LV6','LV7','LV8','LV9'], datasets:[{label:'Bonus', data:[50,100,200,400,600,1000,2000,3000,5000], backgroundColor:'#fbbf24'}]} });
+
+    // Tabs & Modals
+    document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active')); document.querySelectorAll('.tab-pane').forEach(p=>p.classList.add('hidden')); b.classList.add('active'); document.getElementById(`tab-${b.dataset.tab}`).classList.remove('hidden'); }));
+    document.querySelectorAll('.open-contact').forEach(b => b.addEventListener('click', () => document.getElementById('contact-modal').classList.remove('hidden')));
+    document.getElementById('charity-card').addEventListener('click', () => document.getElementById('charity-modal').classList.remove('hidden'));
+    document.getElementById('office-card').addEventListener('click', () => document.getElementById('office-modal').classList.remove('hidden'));
+    document.querySelectorAll('.close-modal').forEach(b => b.addEventListener('click', () => b.closest('.fixed').classList.add('hidden')));
+    document.querySelectorAll('.cert-item img').forEach(i => i.addEventListener('click', () => { document.getElementById('modal-img').src = i.src; document.getElementById('image-modal').classList.remove('hidden'); }));
+    document.querySelector('.close-image').addEventListener('click', () => document.getElementById('image-modal').classList.add('hidden'));
+});
+</script>
+</body>
+</html>

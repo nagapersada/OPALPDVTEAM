@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Peluang Bisnis Interaktif: DV TEAM x OPALP</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+
+<style>
+    /* === BASE SETTINGS === */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0f172a; 
+        color: #e2e8f0;
+        overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* === ANIMATED BG === */
+    .animated-bg {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+        background: radial-gradient(circle at 50% 50%, #1e293b, #0f172a, #000000);
+    }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 20s infinite ease-in-out; }
+    .orb-1 { width: 400px; height: 400px; background: #0369a1; top: -100px; left: -100px; }
+    .orb-2 { width: 500px; height: 500px; background: #b45309; bottom: -100px; right: -100px; animation-delay: -5s; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 50px); } }
+
+    /* === GLASSMORPHISM === */
+    .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .text-gold-gradient { background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .btn-gold { background: linear-gradient(135deg, #d97706, #fbbf24, #b45309); color: #000; transition: all 0.3s; }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(245, 158, 11, 0.5); }
+
+    /* === TABEL PERBAIKAN (STICKY & SOLID) === */
+    .table-wrapper {
+        overflow: auto;
+        max-height: 500px; /* Batas tinggi scroll vertikal */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.75rem;
+    }
+    .table-glass { border-collapse: separate; border-spacing: 0; width: 100%; }
+    
+    /* Header Tetap di Atas */
+    .table-glass thead th {
+        position: sticky;
+        top: 0;
+        background: #1e293b; /* Solid Blue-Slate */
+        color: #fbbf24;
+        z-index: 40;
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        border-bottom: 2px solid rgba(251, 191, 36, 0.3);
+    }
+
+    /* Kolom Hari Tetap di Kiri */
+    .table-glass .sticky-day {
+        position: sticky;
+        left: 0;
+        background: #111827; /* Solid Darker Blue */
+        z-index: 30;
+        font-weight: 800;
+        color: #fbbf24;
+        border-right: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    /* Pojok Kiri Atas (Pertemuan Header & Hari) */
+    .table-glass thead th:first-child {
+        z-index: 50;
+        left: 0;
+    }
+
+    .table-glass td { padding: 12px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); white-space: nowrap; }
+
+    /* === AUDIO PLAYER BTN === */
+    .audio-player-btn { background: rgba(245, 158, 11, 0.2); border: 1px solid #fbbf24; color: #fbbf24; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+    .title-with-audio { display: flex; align-items: center; gap: 1rem; justify-content: center; }
+
+    /* === TABS & CHARTS === */
+    .tab-btn.active { color: #fbbf24; border-bottom: 2px solid #fbbf24; }
+    .chart-container { height: 300px; width: 100%; }
+</style>
+</head>
+<body class="antialiased">
+
+<div class="animated-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+</div>
+
+<div id="splash-screen" class="fixed inset-0 bg-slate-950 z-[9999] flex flex-col items-center justify-center text-center p-6">
+    <blockquote class="text-2xl font-bold text-white max-w-xl">"Peluang tidak terjadi begitu saja, Anda yang menciptakannya."</blockquote>
+    <p class="text-amber-400 mt-4">- Chris Grosser -</p>
+    <button id="enter-btn" class="mt-8 btn-gold px-10 py-4 rounded-xl font-black text-lg">Masuk ke Materi</button>
+</div>
+
+<header class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/5">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-black text-white">DV <span class="text-amber-500">x</span> OPALP</div>
+        <div class="hidden md:flex space-x-6">
+            <a href="#beranda" class="hover:text-amber-400">Beranda</a>
+            <a href="#konsep" class="hover:text-amber-400">Konsep</a>
+            <a href="#kalkulator" class="hover:text-amber-400">Kalkulator</a>
+            <a href="#bonus" class="hover:text-amber-400">Bonus</a>
+            <a href="#legalitas" class="hover:text-amber-400">Legalitas</a>
+        </div>
+        <button class="btn-gold px-6 py-2 rounded-lg font-bold open-contact">Gabung Sekarang</button>
+    </nav>
+</header>
+
+<main class="pt-24">
+    <section id="beranda" class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
+        <div class="title-with-audio mb-6">
+            <h1 class="text-4xl md:text-7xl font-black text-white leading-tight">Ubah Cara Anda <br><span class="text-gold-gradient">Menghasilkan Uang!</span></h1>
+            <button class="audio-player-btn" data-audio-src="audio/narasi-beranda.mp3">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+            </button>
+        </div>
+        <p class="text-slate-400 max-w-2xl text-lg">Sinergi antara DV TEAM dan teknologi AI OPALP untuk profit harian yang aman dan konsisten.</p>
+        <div class="mt-10 relative w-full max-w-4xl aspect-video rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl bg-black">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/1NycUVBmpvI" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section id="kalkulator" class="py-24 px-6 bg-slate-900/50">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-black text-gold-gradient">Kalkulator Potensi</h2>
+                <p class="text-slate-400 mt-2">Simulasi 2x trading/hari dengan profit 0.85% per transaksi.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 glass-card p-8 rounded-3xl">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-amber-400 font-bold mb-2">Modal Awal (USDT)</label>
+                        <input id="inputCapital" type="number" class="w-full bg-slate-950 border border-white/10 rounded-xl p-4 text-white focus:border-amber-500 outline-none" value="100">
+                    </div>
+                    <div>
+                        <label class="block text-amber-400 font-bold mb-2">Target Penghasilan (IDR)</label>
+                        <input id="inputTargetIDR" type="number" class="w-full bg-slate-950 border border-white/10 rounded-xl p-4 text-white focus:border-amber-500 outline-none" value="50000000">
+                    </div>
+                    <button id="btnCalculate" class="w-full btn-gold py-4 rounded-xl font-black text-lg">HITUNG SEKARANG</button>
+                </div>
+
+                <div id="calcResults" class="hidden flex flex-col justify-center space-y-4">
+                    <div class="p-4 bg-slate-800/40 rounded-xl border border-white/5">
+                        <p class="text-slate-400 text-sm">Saldo 30 Hari</p>
+                        <p id="res30" class="text-2xl font-black text-green-400"></p>
+                    </div>
+                    <div class="p-4 bg-slate-800/40 rounded-xl border border-white/5">
+                        <p class="text-slate-400 text-sm">Saldo 60 Hari</p>
+                        <p id="res60" class="text-2xl font-black text-green-400"></p>
+                    </div>
+                    <div class="p-4 bg-amber-500/10 rounded-xl border border-amber-500/30">
+                        <p id="resTargetLabel" class="text-amber-200 text-sm font-bold">Target Tercapai</p>
+                        <p id="resTargetVal" class="text-3xl font-black text-amber-400"></p>
+                        <p id="resTargetIDR" class="text-sm text-red-400"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tableContainer" class="hidden mt-12">
+                <h3 class="text-xl font-bold text-white mb-4">Rincian Compounding Harian</h3>
+                <div class="table-wrapper custom-scrollbar">
+                    <table class="table-glass">
+                        <thead>
+                            <tr>
+                                <th>Hari</th>
+                                <th>Modal Awal</th>
+                                <th>Profit Siang</th>
+                                <th>Profit Malam</th>
+                                <th>Saldo Akhir</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bonus" class="py-24 px-6">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl md:text-5xl font-black text-center text-gold-gradient mb-12">Jenjang Karir & Bonus</h2>
+            <div class="glass-card p-8 rounded-3xl">
+                <div class="flex justify-center border-b border-white/10 mb-8 overflow-x-auto">
+                    <button class="tab-btn px-6 py-4 font-bold" data-tab="karir">Karir</button>
+                    <button class="tab-btn px-6 py-4 font-bold active" data-tab="awal">Bonus Awal</button>
+                    <button class="tab-btn px-6 py-4 font-bold" data-tab="tim">Bonus Tim</button>
+                </div>
+                
+                <div id="tab-karir" class="tab-content hidden">
+                    <div class="chart-container"><canvas id="levelBonusChart"></canvas></div>
+                    <div class="mt-8 p-6 bg-slate-800/50 rounded-xl">
+                        <p class="text-amber-400 font-bold mb-2">Simulasi Tim:</p>
+                        <div class="flex gap-4">
+                            <input id="teamInput" type="number" class="bg-slate-950 p-3 rounded-lg flex-grow" placeholder="Jumlah anggota">
+                            <button id="btnCheckLevel" class="btn-gold px-6 rounded-lg font-bold">Cek</button>
+                        </div>
+                        <p id="levelResult" class="mt-4 font-bold text-white"></p>
+                    </div>
+                </div>
+
+                <div id="tab-awal" class="tab-content">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-slate-800/30 p-6 rounded-xl border border-white/5">
+                            <h4 class="font-bold text-amber-400 text-xl mb-4">Bonus Deposit Baru</h4>
+                            <p>Pengundang: <span class="text-green-400 font-bold">5%</span></p>
+                            <p>Upline: <span class="text-green-400 font-bold">2%</span></p>
+                            <p class="text-xs text-red-400 mt-2">*Min deposit 300 USDT</p>
+                        </div>
+                        <div class="bg-slate-800/30 p-6 rounded-xl border border-white/5">
+                            <h4 class="font-bold text-amber-400 text-xl mb-4">Reward 5 Orang</h4>
+                            <p>Bentuk tim 5 orang pertama (depo @100):</p>
+                            <p class="text-3xl font-black text-green-400">20 USDT</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-tim" class="tab-content hidden">
+                    <div class="bg-slate-800/30 p-6 rounded-xl border border-white/5 space-y-4">
+                        <h4 class="font-bold text-amber-400 text-xl">Bonus Sinyal Tambahan (Ketua)</h4>
+                        <ul class="space-y-2">
+                            <li>✓ Tim 5 orang sendiri: <strong>5 Hari</strong></li>
+                            <li>✓ Bantu 3 bawahan tim: <strong>20 Hari</strong></li>
+                            <li>✓ Bantu 5 bawahan tim: <strong class="text-amber-400">PERMANEN</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="legalitas" class="py-24 px-6 bg-slate-900/30">
+        <div class="container mx-auto max-w-6xl text-center">
+            <h2 class="text-3xl md:text-5xl font-black text-gold-gradient mb-12">Legalitas Internasional</h2>
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-sky-600">
+                    <h3 class="font-bold text-xl mb-4">ASIC Australia</h3>
+                    <p class="text-slate-400 text-sm">Australian Securities & Investments Commission.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-amber-500">
+                    <h3 class="font-bold text-xl mb-4">FinCEN USA</h3>
+                    <p class="text-slate-400 text-sm">US Dept. of Treasury MSB Registration.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-green-500">
+                    <h3 class="font-bold text-xl mb-4">Colorado SOS</h3>
+                    <p class="text-slate-400 text-sm">Registered under Colorado State Secretary.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="cert-item cursor-pointer hover:scale-105 transition"><img src="1000165414.jpg" class="rounded-lg shadow-lg"></div>
+                <div class="cert-item cursor-pointer hover:scale-105 transition"><img src="good-standing.jpg" class="rounded-lg shadow-lg"></div>
+                <div class="cert-item cursor-pointer hover:scale-105 transition"><img src="shares.jpg" class="rounded-lg shadow-lg"></div>
+                <div class="cert-item cursor-pointer hover:scale-105 transition"><img src="authorization.jpg" class="rounded-lg shadow-lg"></div>
+                <div class="cert-item cursor-pointer hover:scale-105 transition"><img src="guarantee.jpg" class="rounded-lg shadow-lg"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div id="contact-modal" class="fixed inset-0 bg-black/90 z-[999] hidden flex items-center justify-center p-4">
+    <div class="glass-card p-8 rounded-3xl max-w-md w-full text-center">
+        <h3 class="text-2xl font-black text-white">Naga Persada Team</h3>
+        <p class="text-amber-400 font-bold mt-2">Oleh: Deka Sonjaya</p>
+        <p class="mt-4 text-slate-300">Hubungi pengundang Anda untuk mulai membangun masa depan hari ini.</p>
+        <button class="mt-6 w-full btn-gold py-3 rounded-xl font-bold close-modal">Tutup</button>
+    </div>
+</div>
+
+<div id="image-modal" class="fixed inset-0 bg-black/95 z-[1000] hidden flex items-center justify-center p-4">
+    <img id="modal-img" class="max-w-full max-h-[90vh] rounded-xl border border-amber-500/50">
+    <button class="absolute top-6 right-6 text-white text-4xl close-image-modal">&times;</button>
+</div>
+
+<footer class="bg-black py-10 text-center border-t border-white/5">
+    <p class="text-slate-500">© 2025 DV TEAM x OPALP. All Rights Reserved.</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Nav & Splash
+    const enterBtn = document.getElementById('enter-btn');
+    enterBtn.addEventListener('click', () => document.getElementById('splash-screen').style.display = 'none');
+
+    // Kalkulator Potensi (Sempurna)
+    const USD_IDR = 16649.10;
+    const rate = 0.0085; // 0.85%
+
+    const formatUSD = (v) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(v);
+    const formatIDR = (v) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(v);
+
+    document.getElementById('btnCalculate').addEventListener('click', () => {
+        let bal = parseFloat(document.getElementById('inputCapital').value);
+        let targetIDR = parseFloat(document.getElementById('inputTargetIDR').value);
+        if(bal < 100) return alert("Minimal 100 USDT");
+
+        let targetUSDT = targetIDR / USD_IDR;
+        let dayTargetReached = -1;
+        let bal30 = 0, bal60 = 0;
+        let tableHTML = '';
+
+        for(let d=1; d<=1000; d++){
+            let start = bal;
+            let p1 = start * rate;
+            let mid = start + p1;
+            let p2 = mid * rate;
+            let end = mid + p2;
+
+            if(d === 30) bal30 = end;
+            if(d === 60) bal60 = end;
+            if(dayTargetReached === -1 && end >= targetUSDT) dayTargetReached = d;
+
+            if(d <= 60 || (dayTargetReached !== -1 && d <= dayTargetReached + 5)){
+                tableHTML += `<tr>
+                    <td class="sticky-day">${d}</td>
+                    <td>${formatUSD(start)}</td>
+                    <td class="text-green-400">+${formatUSD(p1)}</td>
+                    <td class="text-green-400">+${formatUSD(p2)}</td>
+                    <td class="font-bold text-amber-400">${formatUSD(end)}</td>
+                </tr>`;
+            }
+            bal = end;
+            if(dayTargetReached !== -1 && d >= dayTargetReached + 10) break;
+        }
+
+        document.getElementById('res30').innerText = formatUSD(bal30);
+        document.getElementById('res60').innerText = formatUSD(bal60);
+        
+        if(dayTargetReached !== -1){
+            document.getElementById('resTargetLabel').innerText = `Target Hari ke-${dayTargetReached}`;
+            document.getElementById('resTargetVal').innerText = formatUSD(bal);
+            document.getElementById('resTargetIDR').innerText = formatIDR(bal * USD_IDR);
+        }
+
+        document.getElementById('tableBody').innerHTML = tableHTML;
+        document.getElementById('calcResults').classList.remove('hidden');
+        document.getElementById('tableContainer').classList.remove('hidden');
+    });
+
+    // Restore Tab System
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(t => {
+        t.addEventListener('click', () => {
+            tabs.forEach(btn => btn.classList.remove('active'));
+            t.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(`tab-${t.dataset.tab}`).classList.remove('hidden');
+        });
+    });
+
+    // Modals
+    document.querySelectorAll('.open-contact').forEach(b => b.addEventListener('click', () => document.getElementById('contact-modal').classList.remove('hidden')));
+    document.querySelectorAll('.close-modal').forEach(b => b.addEventListener('click', () => b.closest('div.fixed').classList.add('hidden')));
+
+    // Image Modal
+    document.querySelectorAll('.cert-item img').forEach(i => {
+        i.addEventListener('click', () => {
+            document.getElementById('modal-img').src = i.src;
+            document.getElementById('image-modal').classList.remove('hidden');
+        });
+    });
+    document.querySelector('.close-image-modal').addEventListener('click', () => document.getElementById('image-modal').classList.add('hidden'));
+
+    // Restore Career Chart
+    const ctx = document.getElementById('levelBonusChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['LV1', 'LV2', 'LV3', 'LV4', 'LV5', 'LV6', 'LV7', 'LV8', 'LV9'],
+            datasets: [{ label: 'Bonus (USDT)', data: [50, 100, 200, 400, 600, 1000, 2000, 3000, 5000], backgroundColor: '#fbbf24' }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+});
+</script>
+</body>
+</html>

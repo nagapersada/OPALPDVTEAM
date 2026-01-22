@@ -103,12 +103,12 @@
         .text-4xl { font-size: 1.5rem !important; }
     }
 
-    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; max-width: 1000px; margin: 0 auto; }
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
     .cert-item { background: rgba(255,255,255,0.05); border-radius: 0.75rem; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; transition: transform 0.3s ease; cursor: pointer; }
     .cert-item:hover { transform: translateY(-5px); border-color: #fbbf24; }
     .cert-img-container { aspect-ratio: 4 / 5; width: 100%; background-color: #ffffff; padding: 0.5rem; display: flex; align-items: center; justify-content: center; }
     .cert-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .cert-title { padding: 0.75rem; font-weight: 600; color: #e2e8f0; text-align: center; font-size: 0.8rem; }
+    .cert-title { padding: 1rem; font-weight: 600; color: #e2e8f0; text-align: center; font-size: 0.9rem; }
 
     .audio-player-btn { background: rgba(245, 158, 11, 0.2); border: 1px solid #fbbf24; color: #fbbf24; border-radius: 50%; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
     .audio-player-btn:hover { background: #fbbf24; color: #000; box-shadow: 0 0 15px #fbbf24; }
@@ -122,7 +122,7 @@
     #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0c4a6e, #020617); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; z-index: 9999; transition: opacity 0.5s ease-out; padding: 1rem; }
     #splash-screen.hidden { opacity: 0; pointer-events: none; }
     
-    /* PRESENTATION MODE UTILS (Agar pas satu layar) */
+    /* PRESENTATION MODE UTILS */
     .section-screen {
         min-height: 100vh;
         display: flex;
@@ -508,59 +508,61 @@
     </section>
 
     <section class="section-screen" id="legalitas">
-        <div class="container mx-auto px-6 text-center mb-8 lg:mb-10 max-w-7xl">
+        <div class="container mx-auto px-6 text-center mb-16">
             <div class="title-with-audio">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gold-gradient">Transparansi & Legalitas</h2>
+                <h2 class="text-3xl md:text-5xl font-bold text-gold-gradient">Transparansi & Legalitas</h2>
                 <button aria-label="Putar Audio Legalitas" class="audio-player-btn" data-audio-src="audio/narasi-legalitas.mp3">
                     <svg class="play-icon" viewbox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"></path></svg>
                     <svg class="pause-icon" style="display:none;" viewbox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
                 </button>
             </div>
-            <p class="mt-2 text-slate-200 max-w-3xl mx-auto text-sm">
-                Kepercayaan adalah segalanya. Verifikasi sendiri legalitas Opalp melalui sumber resmi.
+            <p class="mt-4 text-slate-200 max-w-3xl mx-auto">
+                Di dunia investasi digital, kepercayaan adalah segalanya. Kami tidak hanya mengatakannya, kami membuktikannya. Kami mengajak Anda untuk tidak hanya percaya pada kata-kata kami, tetapi untuk memverifikasi sendiri legalitas dan kredibilitas platform Opalp melalui sumber-sumber resmi pemerintah.
             </p>
         </div>
-        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-10 max-w-7xl">
-            <div class="glass-card p-6 rounded-2xl border-t-4 border-t-sky-600">
-                <h3 class="text-lg font-bold text-white mb-2">1. Registrasi AS</h3>
-                <p class="text-slate-200 mb-4 text-xs">Terdaftar di Sekretaris Negara Bagian Colorado.</p>
-                <div class="bg-slate-900/80 p-3 rounded border border-white/5 text-xs">
-                    <a href="https://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do" target="_blank" class="text-amber-500 hover:underline">Cek Website Resmi</a>
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div class="glass-card p-8 rounded-2xl border-t-4 border-t-sky-600">
+                <h3 class="text-xl font-bold text-white mb-4">1. Cek Registrasi</h3>
+                <p class="text-slate-200 mb-6 text-sm">Platform Opalp terdaftar resmi sebagai entitas bisnis di negara bagian Colorado, AS. Anda bisa memeriksanya langsung di situs Sekretaris Negara Bagian Colorado.</p>
+                <div class="bg-slate-900/80 p-4 rounded border border-white/5 text-sm">
+                    <a href="https://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do" target="_blank" class="text-amber-500 hover:underline break-all">Cek Website Resmi</a>
+                    <p class="mt-2 text-slate-200">Keyword: <span class="text-white bg-white/10 px-1 rounded">Opalp</span></p>
                 </div>
             </div>
-            <div class="glass-card p-6 rounded-2xl border-t-4 border-t-amber-500">
-                <h3 class="text-lg font-bold text-white mb-2">2. Verifikasi FinCEN</h3>
-                <p class="text-slate-200 mb-4 text-xs">Terdaftar sebagai Money Services Business (MSB).</p>
-                <div class="bg-slate-900/80 p-3 rounded border border-white/5 text-xs">
-                    <a href="https://www.fincen.gov/msb-state-selector" target="_blank" class="text-amber-500 hover:underline">Cek Website Resmi</a>
+            <div class="glass-card p-8 rounded-2xl border-t-4 border-t-amber-500">
+                <h3 class="text-xl font-bold text-white mb-4">2. Verifikasi FinCEN</h3>
+                <p class="text-slate-200 mb-6 text-sm">Opalp terdaftar sebagai Money Services Business (MSB) di FinCEN, biro dari Departemen Keuangan AS, yang menunjukkan komitmen pada standar keamanan finansial.</p>
+                <div class="bg-slate-900/80 p-4 rounded border border-white/5 text-sm">
+                    <a href="https://www.fincen.gov/msb-state-selector" target="_blank" class="text-amber-500 hover:underline break-all">Cek Website Resmi</a>
+                    <p class="mt-2 text-slate-200">MSB: <span class="text-white bg-white/10 px-1 rounded">31000292053165</span></p>
                 </div>
             </div>
-            <div class="glass-card p-6 rounded-2xl border-t-4 border-t-green-500">
-                <h3 class="text-lg font-bold text-white mb-2">3. Lisensi ASIC</h3>
-                <p class="text-slate-200 mb-4 text-xs">Terdaftar resmi di Australian Securities (ASIC).</p>
-                <div class="bg-slate-900/80 p-3 rounded border border-white/5 text-xs">
-                    <a href="http://connectonline.asic.gov.au" target="_blank" class="text-amber-500 hover:underline">Cek Website Resmi</a>
+            <div class="glass-card p-8 rounded-2xl border-t-4 border-t-green-500">
+                <h3 class="text-xl font-bold text-white mb-4">3. Lisensi ASIC</h3>
+                <p class="text-slate-200 mb-6 text-sm">Opalp kini telah terdaftar resmi di Australian Securities and Investments Commission (ASIC) dengan Nomor Registrasi 691519329. Langkah ini menegaskan komitmen Opalp dalam mematuhi standar internasional.</p>
+                <div class="bg-slate-900/80 p-4 rounded border border-white/5 text-sm">
+                    <a href="http://connectonline.asic.gov.au" target="_blank" class="text-amber-500 hover:underline break-all">Cek Website Resmi</a>
+                    <p class="mt-2 text-slate-200">No: 691519329</p>
                 </div>
             </div>
-            <div class="glass-card p-6 rounded-2xl border-t-4 border-t-red-600">
-                <h3 class="text-lg font-bold text-white mb-2">4. Registrasi Ontario</h3>
-                <p class="text-slate-200 mb-4 text-xs">Registrasi resmi di Ontario, Kanada.</p>
-                <div class="bg-slate-900/80 p-3 rounded border border-white/5 text-xs">
-                    <a href="https://www.ontario.ca/page/ontario-business-registry" target="_blank" class="text-amber-500 hover:underline">Cek Website Resmi</a>
+            <div class="glass-card p-8 rounded-2xl border-t-4 border-t-red-600">
+                <h3 class="text-xl font-bold text-white mb-4">4. Registrasi Ontario</h3>
+                <p class="text-slate-200 mb-6 text-sm">Opalp memiliki registrasi resmi di Ontario, Kanada, sebagai entitas bisnis yang sah. Verifikasi transparansi perusahaan dapat dilakukan melalui database Ontario Business Registry.</p>
+                <div class="bg-slate-900/80 p-4 rounded border border-white/5 text-sm">
+                    <a href="https://www.ontario.ca/page/ontario-business-registry" target="_blank" class="text-amber-500 hover:underline break-all">Cek Website Resmi</a>
+                    <p class="mt-2 text-slate-200">Keyword: <span class="text-white bg-white/10 px-1 rounded">1001462247</span></p>
                 </div>
             </div>
         </div>
-        <div class="container mx-auto px-6 max-w-6xl">
-            <h3 class="text-xl font-bold text-center text-white mb-6">Dokumen Resmi Perusahaan</h3>
-            <div class="cert-grid">
-                <div class="cert-item"><div class="cert-img-container"><img alt="ASIC" class="cert-img" src="./1000165414.jpg"/></div><p class="cert-title">Registrasi ASIC</p></div>
-                <div class="cert-item"><div class="cert-img-container"><img alt="Good Standing" class="cert-img" src="./good-standing.jpg"/></div><p class="cert-title">Good Standing</p></div>
-                <div class="cert-item"><div class="cert-img-container"><img alt="Shares" class="cert-img" src="./shares.jpg"/></div><p class="cert-title">Shares Cert.</p></div>
-                <div class="cert-item"><div class="cert-img-container"><img alt="Auth FinCEN" class="cert-img" src="./authorization.jpg"/></div><p class="cert-title">Auth. FinCEN</p></div>
-                <div class="cert-item"><div class="cert-img-container"><img alt="Guarantee" class="cert-img" src="./guarantee.jpg"/></div><p class="cert-title">Guarantee Doc</p></div>
-                <div class="cert-item"><div class="cert-img-container"><img alt="FinCEN Certificate" class="cert-img" src="./fincen.jpg"/></div><p class="cert-title">FinCEN Cert.</p></div>
-                <div class="cert-item"><div class="cert-img-container"><img alt="Ontario Canada" class="cert-img" src="./ontario,canada.jpg"/></div><p class="cert-title">Ontario Canada</p></div>
-            </div>
+        <h3 class="text-2xl font-bold text-center text-white mb-8">Dokumen Resmi Perusahaan</h3>
+        <div class="cert-grid">
+            <div class="cert-item"><div class="cert-img-container"><img alt="ASIC" class="cert-img" src="./1000165414.jpg"/></div><p class="cert-title">Registrasi ASIC</p></div>
+            <div class="cert-item"><div class="cert-img-container"><img alt="Good Standing" class="cert-img" src="./good-standing.jpg"/></div><p class="cert-title">Good Standing</p></div>
+            <div class="cert-item"><div class="cert-img-container"><img alt="Shares" class="cert-img" src="./shares.jpg"/></div><p class="cert-title">Shares Cert.</p></div>
+            <div class="cert-item"><div class="cert-img-container"><img alt="Auth FinCEN" class="cert-img" src="./authorization.jpg"/></div><p class="cert-title">Auth. FinCEN</p></div>
+            <div class="cert-item"><div class="cert-img-container"><img alt="Guarantee" class="cert-img" src="./guarantee.jpg"/></div><p class="cert-title">Guarantee Doc</p></div>
+            <div class="cert-item"><div class="cert-img-container"><img alt="FinCEN Certificate" class="cert-img" src="./fincen.jpg"/></div><p class="cert-title">FinCEN Cert.</p></div>
+            <div class="cert-item"><div class="cert-img-container"><img alt="Ontario Canada" class="cert-img" src="./ontario,canada.jpg"/></div><p class="cert-title">Ontario Canada</p></div>
         </div>
     </section>
 
